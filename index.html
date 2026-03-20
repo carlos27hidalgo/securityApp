@@ -3,57 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security App</title>
+    <title>SENTINEL Facial Recognition</title>
     <style>
-        /* Mobile Styles */
-        body {
-            font-family: Arial, sans-serif;
+        /* Basic reset */
+        body, h1, h2, h3, p, ul, li {
             margin: 0;
             padding: 0;
+            list-style: none;
         }
 
-        nav {
-            display: flex;
-            flex-direction: column;
-            background-color: #333;
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
         }
 
-        nav a {
-            padding: 14px;
-            text-decoration: none;
-            color: white;
-            text-align: center;
+        /* Layout styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        nav a:hover {
-            background-color: #575757;
-        }
-
-        /* Media Queries for Small Tablets and Mobile Devices */
+        /* Styles for different devices */
         @media (max-width: 768px) {
-            nav {
-                flex-direction: row;
-                flex-wrap: nowrap;
+            body {
+                font-size: 14px;
             }
         }
 
-        @media (max-width: 480px) {
-            nav a {
-                flex: 1;
-                text-align: center;
+        @media (min-width: 769px) {
+            body {
+                font-size: 16px;
             }
+        }
+
+        /* Camera detection alert */
+        .alert {
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            display: none;
         }
     </style>
 </head>
 <body>
-<nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-</nav>
-<div>
-    <h1>Welcome to the Security App</h1>
-    <p>This app helps you manage your security needs effectively.</p>
-</div>
+    <div class="container">
+        <h1>SENTINEL Facial Recognition System</h1>
+        <div class="alert" id="alert">Camera is off or not detected!</div>
+        <button id="start-camera">Start Camera</button>
+        <video id="video" width="720" height="560" autoplay></video>
+    </div>
+    <script>
+        const video = document.getElementById('video');
+        const alertBox = document.getElementById('alert');
+
+        document.getElementById('start-camera').addEventListener('click', async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+                alertBox.style.display = 'none';
+            } catch (error) {
+                alertBox.style.display = 'block';
+            }
+        });
+
+        // Database management functionality would go here
+    </script>
 </body>
 </html>
